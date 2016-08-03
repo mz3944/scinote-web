@@ -53,6 +53,8 @@ gem 'aws-sdk-v1'
 gem 'delayed_job_active_record'
 gem 'devise-async'
 
+gem 'nokogiri' # XML parser
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
