@@ -82,6 +82,12 @@
                             <%= raw '<br>' if asset.is_image? %>
                             <span><%= asset.file_file_name %></span>
                           <% end %>
+                          <% if asset.can_perform_action("view") %>
+                            <%= link_to "View", view_asset_url(id: asset) %>
+                          <% end %>
+                          <% if asset.can_perform_action("edit") %>
+                            <%= link_to "Edit", edit_asset_url(id: asset) %>
+                          <% end %>
                         <% else %>
                           <%= asset_loading_span(asset) %>
                         <% end %>
