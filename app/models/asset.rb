@@ -35,8 +35,7 @@ class Asset < ActiveRecord::Base
     dependent: :nullify
 
   has_one :result_asset,
-    inverse_of: :asset,
-    dependent: :destroy
+    inverse_of: :asset
   has_one :result, through: :result_asset,
     dependent: :nullify
   has_many :report_elements, inverse_of: :asset, dependent: :destroy

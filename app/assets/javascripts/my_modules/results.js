@@ -1,3 +1,19 @@
+function result_delete(t,id) {
+  if (confirm('Are you sure you want to delete this result?')) {
+    $.ajax({
+        type:   "POST",
+        url:    '/projects/delete_results',
+        dataType:   'json',
+        data:     {id: id, type:t},
+        success:  function (data) {
+          location.reload();
+      }
+    });
+  }
+
+  return false;
+}
+
 function results_comment_edit(id) {
   document.getElementById('edit_comment_'+id).type='text';
   $('#span_comment_'+id).hide();

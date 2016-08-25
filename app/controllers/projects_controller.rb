@@ -104,6 +104,38 @@ class ProjectsController < ApplicationController
       end
   end
 
+  def delete_results
+    id = request.request_parameters[:id]
+    type = request.request_parameters[:type]
+
+    result_id = -1
+    asset_id = -1
+    if type == "2"
+      result_id = ResultText.find(id).result_id
+      Result.where(id:result_id).destroy_all
+    elsif type == "3"
+      result_id = ResultTable.find(id).result_id
+      table_id = ResultTable.find(id).table_id
+      ResultTable.where(id:id).destroy_all
+      Table.where(id:table_id).destroy_all
+      Result.where(id:result_id).destroy_all
+    else
+      result_id = ResultAsset.find(id).result_id
+      asset_id = ResultAsset.find(id).asset_id
+      asset = Asset.find_by_id(asset_id)
+      asset.file.destroy
+
+      ResultAsset.where(id:id).destroy_all 
+      Asset.where(id:asset_id).destroy_all 
+      Result.where(id:result_id).destroy_all
+    end
+
+    rb_json = JSON.parse('{"json":['+id+']}') 
+    respond_to do |format|      
+        format.json {render json: rb_json["json"]}
+    end
+  end
+
   def archive
     @filter_by_archived = true
     index

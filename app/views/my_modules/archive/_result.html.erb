@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'my_modules/results.js' %>
 <div class="panel panel-default panel-archive">
 
   <div class="dropdown pull-right">
@@ -14,6 +15,15 @@
           <%= link_to option_text, result_text_download_path(result.result_text_id), data: {no_turbolink: true} %>
         <% elsif result.is_table %>
           <%= link_to option_text, result_table_download_path(result.result_table_id), data: {no_turbolink: true} %>
+        <% end %>
+      </li>
+      <li>
+        <% if result.is_asset %>
+          <a href="#" onclick='return result_delete(1,<%= result.result_asset_id %>)'>Delete</a>
+        <% elsif result.is_text %>
+          <a href="#" onclick='return result_delete(2,<%= result.result_text_id %>)'>Delete</a>
+        <% elsif result.is_table %>
+          <a href="#" onclick='return result_delete(3,<%= result.result_table_id %>)'>Delete</a>
         <% end %>
       </li>
     </ul>

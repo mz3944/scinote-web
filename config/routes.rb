@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
   get 'projects/archive', to: 'projects#archive', as: 'projects_archive'
   
+  post 'projects/delete_results', to: 'projects#delete_results'
   post 'projects/delete_comment_results', to: 'projects#delete_comment_results'
   post 'projects/update_comment_results', to: 'projects#update_comment_results'
   post 'projects/delete_comment_projects', to: 'projects#delete_comment_projects'
