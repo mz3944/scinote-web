@@ -33,6 +33,15 @@ ifeq (production.env,$(wildcard production.env))
 endif
 	@echo "$$PRODUCTION_CONFIG_BODY" > production.env ;
 
+reinit:
+	@$(MAKE) rails cmd="bash -c 'rake db:drop && rake db:create && rake db:migrate && rake db:seed'"
+
+reinit-billing:
+	@$(MAKE) rails cmd="bash -c 'rake billing:seed && rails c && Scinote::Core::Billing::PaymentsHelper.assign_free_account_and_plan(Team.first) && exit'"
+
+reinit-organization-management:
+	@$(MAKE) rails cmd="bash -c 'rails c && User.first.update_attribute(:organization_role, 1) && exit'"
+
 db-cli:
 	@$(MAKE) rails cmd="rails db"
 
